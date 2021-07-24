@@ -1,9 +1,11 @@
 package com.plantestore.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -23,9 +25,9 @@ public class Plant {
     private double weight;
     private String location;
 
-    @ManyToOne
-    @JoinColumn(name = "media_id")
-    private Media media;
+    @JsonBackReference(value = "media")
+    @OneToMany(mappedBy = "plant")
+    Set<Media> media = new HashSet<>();
 
     public Plant(String name, String color, double height, double weight, String location) {
         this.name = name;

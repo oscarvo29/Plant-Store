@@ -19,8 +19,12 @@ public class Media {
     private Long mediaId;
     private String mediaUrl;
 
-    @JsonBackReference(value = "plants")
-    @OneToMany(mappedBy = "media")
-    Set<Plant> plants = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "plant_id")
+    private Plant plant;
 
+    public Media(Long mediaId, String mediaUrl) {
+        this.mediaId = mediaId;
+        this.mediaUrl = mediaUrl;
+    }
 }
